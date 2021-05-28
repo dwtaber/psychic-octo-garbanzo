@@ -1,0 +1,91 @@
+{
+    "m551":
+    {
+        "name": "HP LaserJet Color M551",
+        "driver": "m551.gz",
+        "driverPath": "https://raw.githubusercontent.com/dwtaber/psychic-octo-garbanzo/main/ppd/m551.gz",
+        "options":
+        [
+            {
+                "name": "Option1",
+                "value": "true"
+            },
+            {
+                "name": "Duplex",
+                "value": "DuplexNoTumble"
+            },
+            {
+                "name": "HPOption_Duplexer",
+                "value": "True"
+            },
+            {
+                "name": "HPOption_Tray3",
+                "value": "tray500"
+            },
+            {
+                "name": "printer-is-shared",
+                "value": "false"
+            }
+        ]
+    },
+
+    "m608":
+    {
+        "name": "HP LaserJet M608",
+        "driver": "m608.gz",
+        "driverPath": "https://raw.githubusercontent.com/dwtaber/psychic-octo-garbanzo/main/ppd/m608.gz",
+        "options":
+        [
+            {
+                "name": "Option1",
+                "value": "True"
+            },
+            {
+                "name": "Duplex",
+                "value": "DuplexNoTumble"
+            },
+            {
+                "name": "HPOption_Duplexer",
+                "value": "True"
+            },
+            {
+                "name": "HPOption_Tray3",
+                "value": "tray550"
+            },
+            {
+                "name": "printer-is-shared",
+                "value": "false"
+            }
+        ]
+    },
+
+    "m653":
+    {
+        "name": "HP LaserJet Color M653",
+        "driver": "m651.gz",
+        "driverPath": "https://raw.githubusercontent.com/dwtaber/psychic-octo-garbanzo/main/ppd/m651.gz",
+        "options":
+        [
+            {
+                "name": "Option1",
+                "value": "True"
+            },
+            {
+                "name": "Duplex",
+                "value": "DuplexNoTumble"
+            },
+            {
+                "name": "HPOption_Duplexer",
+                "value": "True"
+            },
+            {
+                "name": "HPOption_Tray3",
+                "value": "tray550"
+            },
+            {
+                "name": "printer-is-shared",
+                "value": "false"
+            }
+        ]
+    }
+}
