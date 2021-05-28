@@ -2,36 +2,36 @@
     {
         "queue": "2flbwa",
         "description": "Library Printer A (mono)",
-        "model": "m608"
+        "model": printerModels.m608
     },
     {
         "queue": "2flbwb",
         "description": "Library Printer B (mono)",
-        "model": "m608"
+        "model": printerModels.m608
     },
     {
         "queue": "2flcolor",
         "description": "Library Printer C (color)",
-        "model": "m551"
+        "model": printerModels.m551
     },
     {
         "queue": "3flcolor",
         "description": "Library Printer D (color)",
-        "model": "m653"
+        "model": printerModels.m653
     },
     {
         "queue": "4flbwa",
         "description": "Library Printer E (mono)",
-        "model": "m608"
+        "model": printerModels.m608
     },
     {
         "queue": "4flbwb",
         "description": "Library Printer F (mono)",
-        "model": "m608"
+        "model": printerModels.m608
     },
     {
         "queue": "4flcolor",
         "description": "Library Printer G (color)",
-        "model": "m551"
+        "model": printerModels.m551
     }
 ]
