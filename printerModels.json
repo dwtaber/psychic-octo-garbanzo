@@ -2,8 +2,8 @@
     "m551":
     {
         "name": "HP LaserJet Color M551",
-        "driver": "m551.gz",
-        "driverRemotePath": "https://raw.githubusercontent.com/dwtaber/psychic-octo-garbanzo/main/ppd/m551.gz",
+        "ppd": "HP LaserJet 500 color M551.gz",
+        "driverRemotePath": null,
         "options":
         [
             {
@@ -20,7 +20,7 @@
             },
             {
                 "name": "HPOption_Tray3",
-                "value": "tray500"
+                "value": "HP500SheetInputTray"
             },
             {
                 "name": "printer-is-shared",
@@ -32,7 +32,7 @@
     "m608":
     {
         "name": "HP LaserJet M608",
-        "driver": "m608.gz",
+        "ppd": "HP LaserJet M607 M608 M609.gz",
         "driverRemotePath": "https://raw.githubusercontent.com/dwtaber/psychic-octo-garbanzo/main/ppd/m608.gz",
         "options":
         [
@@ -50,7 +50,7 @@
             },
             {
                 "name": "HPOption_Tray3",
-                "value": "tray550"
+                "value": "HP550SheetInputTray"
             },
             {
                 "name": "printer-is-shared",
@@ -61,9 +61,9 @@
 
     "m653":
     {
-        "name": "HP LaserJet Color M653",
-        "driver": "m651.gz",
-        "driverRemotePath": "https://raw.githubusercontent.com/dwtaber/psychic-octo-garbanzo/main/ppd/m651.gz",
+        "name": "HP Color LaserJet M653",
+        "ppd": "HP Color LaserJet M651.gz",
+        "driverRemotePath": null,
         "options":
         [
             {
@@ -80,7 +80,7 @@
             },
             {
                 "name": "HPOption_Tray3",
-                "value": "tray550"
+                "value": "HP550SheetInputTray"
             },
             {
                 "name": "printer-is-shared",
