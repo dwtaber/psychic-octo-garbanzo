@@ -2,6 +2,8 @@ var app = Application.currentApplication();
 var finder = Application("Finder");
 app.includeStandardAdditions = true;
 
+var homeFolder = app.systemAttribute("HOME");
+
 function updateProgress(text)
 {
     Progress.description = text;
@@ -13,18 +15,18 @@ var GoPrintUri = "lpd://goprint-sw.mdc.musc.edu";
 var repoUri = "https://raw.githubusercontent.com/dwtaber/psychic-octo-garbanzo/main";
 
 // macOS stores PPD files here.
-var ppdsPath = "/Library/Printers/PPDs/Contents/Resources";
+var ppdsPath = Path("/Library/Printers/PPDs/Contents/Resources");
 
 // Downloaded items go here and will be deleted when the script is complete.
-var scriptFolder = "$HOME/Downloads/LibPrinterSetup";
+var scriptFolder = Path(`${homeFolder}/Downloads/LibPrinterSetup`);
 
 // Download location for the HP driver pack, where we're saving to, where we're mounting it, and where its installer package is.
 var driverBundleDmgRemotePath = "https://updates.cdn-apple.com/2020/macos/001-41745-20201210-DBC9B46B-88B2-4032-87D9-449AF1D20804/HewlettPackardPrinterDrivers.dmg";
 var driverBundleDmgLocalName = "driverBundle.dmg";
-var driverBundleDmgLocalPath = `${scriptFolder}/${driverBundleDmgLocalName}`;
-var driverBundleDmgMountPoint = "/Volumes/driverBundle";
+var driverBundleDmgLocalPath = Path(`${scriptFolder}/${driverBundleDmgLocalName}`);
+var driverBundleDmgMountPoint = Path("/Volumes/driverBundle");
 var driverBundlePkgLocalName = "HewlettPackardPrinterDrivers.pkg"
-var driverBundlePkgLocalPath = `${driverBundleDmgMountPoint}/${driverBundlePkgLocalName}`;
+var driverBundlePkgLocalPath = Path(`${driverBundleDmgMountPoint}/${driverBundlePkgLocalName}`);
 
 // SHA-256 checksums for the dmg and gz files.
 var sha256HashesRemotePath = `${repoUri}/sha256Hashes.json`;
@@ -33,12 +35,12 @@ var sha256Hashes = JSON.parse(sha256HashesString);
 
 function testPath(path)
 {
-    return finder.exists(Path(path))
+    return finder.exists(Path(path));
 }
 
 function testHash(folder,file)
 {
-    let exitCode = app.doShellScript(`echo ${sha256Hashes[file]}  "${folder}/${file}" | shasum -a 256 -s -c; echo $?`);
+    let exitCode = app.doShellScript(`echo ${sha256Hashes[file]}  "${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
     if (exitCode == 0 || exitCode == 1)
     {
         return !Boolean(exitCode);
@@ -48,7 +50,7 @@ function testHash(folder,file)
 
 function testFile(folder,file)
 {
-    let path = `${folder}/${file}`;
+    let path = Path(`${folder}/${file}`);
     return ( testPath(path) && testHash(folder,file) );
 }
 
