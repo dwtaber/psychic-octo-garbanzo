@@ -33,7 +33,7 @@ console.log(`driverBundlePkgLocalPath: ${driverBundlePkgLocalPath}`);
 
 // SHA-256 checksums for the dmg and gz files.
 var sha256HashesRemotePath = `${repoUri}/sha256Hashes.json`;
-var sha256HashesString = app.doShellScript(`curl ${sha256HashesRemotePath}`);
+var sha256HashesString = app.doShellScript(`curl ${sha256HashesRemotePath}`, {administratorPrivileges:true});
 var sha256Hashes = JSON.parse(sha256HashesString);
 
 function testPath(path)
