@@ -90,16 +90,19 @@ var printers = JSON.parse(printersString);
 
 // Mount the dmg file, run the installer, and then dismount the dmg.
 updateProgress("Installing driver bundle");
+console.log("Installing driver bundle");
 app.doShellScript(`hdiutil attach ${driverBundleDmgLocalPath} -mountpoint ${driverBundleDmgMountPoint}`);
 app.doShellScript(`installer -pkg ${driverBundlePkgLocalPath} -target /`, {administratorPrivileges:true});
 app.doShellScript(`hdiutil detach ${driverBundleDmgMountPoint}`);
 
 // Get PPD files that don't appear in the driver bundle from Apple.
 updateProgress("Downloading additional drivers");
+console.log("Downloading additional drivers");
 
 Object.values(printerModels).forEach(model => {
     if ( testPath(`${ppdsPath}/${model.ppd}`) == false )
     {
+        console.log(`Downloading ppd to ${ppdsPath}/${model.ppd}`);
         app.doShellScript(`curl ${model.driverRemotePath} --output "${ppdsPath}/${model.ppd}"`, {administratorPrivileges:true});
     }
 });
@@ -127,11 +130,13 @@ printers.forEach(printer => {
     ]
     let paramString = lpadminParams.join(' ');
 
+    console.log(`adding ${printer.description}: (doShellScript) lpadmin ${paramString}`);
     app.doShellScript(`lpadmin ${paramString}`);
 });
 
 // Delete the downloaded files.
 updateProgress("Deleting temporary folder");
+console.log(`Deleting temporary folder: (doShellScript) rm -R ${scriptFolder}`);
 app.doShellScript(`rm -R ${scriptFolder}`);
 
 // Launch Printers & Scanners pane in System Preferences.
