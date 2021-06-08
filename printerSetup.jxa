@@ -47,12 +47,13 @@ function testHash(folder,file)
 {
     let hash = sha256Hashes[file].toLowerCase();
     console.log(`testHash doShellScript: echo "${hash}  ${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
-    let exitCode = app.doShellScript(`echo "${hash}  ${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
+    let exitCodeString = app.doShellScript(`echo "${hash}  ${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
+    let exitCode = parseInt(exitCodeString)
     console.log(`testHash exitCode: ${exitCode}`);
     if (exitCode == 0 || exitCode == 1)
     {
-        console.log(`testHash return: ${Boolean(exitCode)}`);
-        return Boolean(exitCode);
+        console.log(`testHash return: ${!Boolean(exitCode)}`);
+        return !Boolean(exitCode);
     }
     else 
     {
@@ -77,6 +78,8 @@ if ( testPath(scriptFolder) == false )
     updateProgress("Creating temporary folder");
     app.doShellScript(`mkdir ${scriptFolder}`);
 }
+
+updateProgress("Downloading driver bundle (if needed)");
 
 // Download driver bundle unless it already exists and has the correct SHA-256 checksum.
 if (testFile(scriptFolder,driverBundleDmgLocalName) == false)
