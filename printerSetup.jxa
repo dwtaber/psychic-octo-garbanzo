@@ -28,6 +28,9 @@ var driverBundleDmgMountPoint = Path("/Volumes/driverBundle");
 var driverBundlePkgLocalName = "HewlettPackardPrinterDrivers.pkg"
 var driverBundlePkgLocalPath = Path(`${driverBundleDmgMountPoint}/${driverBundlePkgLocalName}`);
 
+console.log(`driverBundleDmgLocalPath: ${driverBundleDmgLocalPath}`);
+console.log(`driverBundlePkgLocalPath: ${driverBundlePkgLocalPath}`);
+
 // SHA-256 checksums for the dmg and gz files.
 var sha256HashesRemotePath = `${repoUri}/sha256Hashes.json`;
 var sha256HashesString = app.doShellScript(`curl ${sha256HashesRemotePath}`);
@@ -35,11 +38,13 @@ var sha256Hashes = JSON.parse(sha256HashesString);
 
 function testPath(path)
 {
+    console.log(`testPath path: ${path}`);
     return finder.exists(Path(path));
 }
 
 function testHash(folder,file)
 {
+    console.log(`testHash doShellScript: echo ${sha256Hashes[file]}  "${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
     let exitCode = app.doShellScript(`echo ${sha256Hashes[file]}  "${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
     if (exitCode == 0 || exitCode == 1)
     {
@@ -51,6 +56,9 @@ function testHash(folder,file)
 function testFile(folder,file)
 {
     let path = Path(`${folder}/${file}`);
+    console.log(`testFile folder: ${folder}`);
+    console.log(`testFile file: ${file}`);
+    console.log(`testFile path: ${path}`);
     return ( testPath(path) && testHash(folder,file) );
 }
 
