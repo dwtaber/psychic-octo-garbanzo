@@ -44,8 +44,9 @@ function testPath(path)
 
 function testHash(folder,file)
 {
-    console.log(`testHash doShellScript: echo ${sha256Hashes[file]}  "${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
-    let exitCode = app.doShellScript(`echo ${sha256Hashes[file]}  "${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
+    let hash = sha256Hashes[file].toLowerCase();
+    console.log(`testHash doShellScript: echo ${hash}  "${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
+    let exitCode = app.doShellScript(`echo ${hash}  "${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
     console.log(`testHash exitCode: ${exitCode}`);
     if (exitCode == 0 || exitCode == 1)
     {
