@@ -143,6 +143,7 @@ printers.forEach(printer => {
 });
 
 // Delete the downloaded files.
+// Not using if downloading to /tmp works, because OS will clean it up later.
 // updateProgress("Deleting temporary folder");
 // console.log(`Deleting temporary folder: (doShellScript) rm -R ${scriptFolder}`);
 // app.doShellScript(`rm -R ${scriptFolder}`);
