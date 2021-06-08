@@ -18,7 +18,7 @@ var repoUri = "https://raw.githubusercontent.com/dwtaber/psychic-octo-garbanzo/m
 var ppdsPath = Path("/Library/Printers/PPDs/Contents/Resources");
 
 // Downloaded items go here and will be deleted when the script is complete.
-var scriptFolder = Path(`${homeFolder}/Downloads/LibPrinterSetup`);
+var scriptFolder = Path("/tmp/LibPrinterSetup");
 
 // Download location for the HP driver pack, where we're saving to, where we're mounting it, and where its installer package is.
 var driverBundleDmgRemotePath = "https://updates.cdn-apple.com/2020/macos/001-41745-20201210-DBC9B46B-88B2-4032-87D9-449AF1D20804/HewlettPackardPrinterDrivers.dmg";
@@ -51,10 +51,14 @@ function testHash(folder,file)
     console.log(`testHash exitCode: ${exitCode}`);
     if (exitCode == 0 || exitCode == 1)
     {
-        console.log(`testHash return: ${!Boolean(exitCode)}`);
-        return !Boolean(exitCode);
+        console.log(`testHash return: ${Boolean(exitCode)}`);
+        return Boolean(exitCode);
     }
-    else {throw "Error testing SHA-256 hash";}
+    else 
+    {
+        console.log(`Error testing SHA-256 hash; exit code ${exitcode}`);
+        throw "Error testing SHA-256 hash";
+    }
 }
 
 function testFile(folder,file)
@@ -77,7 +81,7 @@ if ( testPath(scriptFolder) == false )
 // Download driver bundle unless it already exists and has the correct SHA-256 checksum.
 if (testFile(scriptFolder,driverBundleDmgLocalName) == false)
 {
-    console.log("Downloading drive bundle");
+    console.log("Downloading driver bundle");
     updateProgress("Downloading driver bundle");
     app.doShellScript(`curl ${driverBundleDmgRemotePath} --output ${driverBundleDmgLocalPath}`);
 }
@@ -139,9 +143,9 @@ printers.forEach(printer => {
 });
 
 // Delete the downloaded files.
-updateProgress("Deleting temporary folder");
-console.log(`Deleting temporary folder: (doShellScript) rm -R ${scriptFolder}`);
-app.doShellScript(`rm -R ${scriptFolder}`);
+// updateProgress("Deleting temporary folder");
+// console.log(`Deleting temporary folder: (doShellScript) rm -R ${scriptFolder}`);
+// app.doShellScript(`rm -R ${scriptFolder}`);
 
 // Launch Printers & Scanners pane in System Preferences.
 var prefs = Application("System Preferences");
