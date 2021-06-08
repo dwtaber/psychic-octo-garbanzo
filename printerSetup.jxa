@@ -39,17 +39,19 @@ var sha256Hashes = JSON.parse(sha256HashesString);
 function testPath(path)
 {
     console.log(`testPath path: ${path}`);
+    console.log(`testPath return: ${finder.exists(Path(path))}`);
     return finder.exists(Path(path));
 }
 
 function testHash(folder,file)
 {
     let hash = sha256Hashes[file].toLowerCase();
-    console.log(`testHash doShellScript: echo ${hash}  "${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
-    let exitCode = app.doShellScript(`echo ${hash}  "${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
+    console.log(`testHash doShellScript: echo "${hash}  ${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
+    let exitCode = app.doShellScript(`echo "${hash}  ${Path(folder)}/${file}" | shasum -a 256 -s -c; echo $?`);
     console.log(`testHash exitCode: ${exitCode}`);
     if (exitCode == 0 || exitCode == 1)
     {
+        console.log(`testHash return: ${!Boolean(exitCode)}`);
         return !Boolean(exitCode);
     }
     else {throw "Error testing SHA-256 hash";}
@@ -61,7 +63,7 @@ function testFile(folder,file)
     console.log(`testFile folder: ${folder}`);
     console.log(`testFile file: ${file}`);
     console.log(`testFile path: ${path}`);
-    
+    console.log(`testFile return: ${testPath(path) && testHash(folder,file)}`)
     return ( testPath(path) && testHash(folder,file) );
 }
 
@@ -75,6 +77,7 @@ if ( testPath(scriptFolder) == false )
 // Download driver bundle unless it already exists and has the correct SHA-256 checksum.
 if (testFile(scriptFolder,driverBundleDmgLocalName) == false)
 {
+    console.log("Downloading drive bundle");
     updateProgress("Downloading driver bundle");
     app.doShellScript(`curl ${driverBundleDmgRemotePath} --output ${driverBundleDmgLocalPath}`);
 }
